@@ -23,6 +23,7 @@ public class ShadowActivity extends Activity {
 			public void onClick(View v) {
 				
 				Intent i = new Intent(mContext, ShadowIntentService.class);
+				//启动Service
 				startService(i);
 			}
 		});
