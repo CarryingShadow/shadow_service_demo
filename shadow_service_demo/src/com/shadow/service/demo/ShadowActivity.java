@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class ShadowActivity extends Activity {
 
-	Context mContext;
+	private Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
