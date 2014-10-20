@@ -3,13 +3,29 @@ package com.shadow.service.demo;
 import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 @SuppressLint("ShowToast")
 public class ShadowIntentService extends IntentService{
 
+	public class SimpleBinder extends Binder {
+		
+		public ShadowIntentService getService(){
+			
+			return ShadowIntentService.this;
+		}
+		
+		public int add(int a , int b){
+			return a + b;
+		}
+	}
+	
 	public static final String TAG = "ShadowIntentService";
+	
+	public SimpleBinder sBinder;
 	public ShadowIntentService(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
@@ -40,7 +56,12 @@ public class ShadowIntentService extends IntentService{
 		  }
 	}
 
-	
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		sBinder = new SimpleBinder();
+		super.onCreate();
+	}
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
@@ -53,5 +74,11 @@ public class ShadowIntentService extends IntentService{
 		
 		Toast.makeText(this, R.string.toast_service_destroy, Toast.LENGTH_SHORT).show();
 		super.onDestroy();
+	}
+	
+	@Override
+	public IBinder onBind(Intent intent) {
+		
+		return sBinder;
 	}
 }
